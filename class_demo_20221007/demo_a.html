@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>assignment</title>
+		<script type="text/javascript" src="../d3.js"></script>
+		<style type="text/css">
+            #popup{
+                position:absolute;
+                left:10px;
+                top:10px;
+            }
+		</style>
+	</head>
+<body>
+
+    <div id="barChart">bar chart goes here</div>
+
+    <!-- <div id="popup"> popup text</div> -->
+
+    <script type="text/javascript">
+
+        d3.select("body").append("div").attr("id","popup")
+        .html("")
+
+        var data = []
+
+        for(var i =0; i<100; i++){
+
+            console.log(i)
+            var currentRandomNumber = Math.random()*100
+            // console.log(i,currentRandomNumber)
+
+            data.push(currentRandomNumber)
+
+        }
+        // console.log(data)
+        data = data.sort(function(a,b){
+            // console.log(a,b)
+            return b-a
+        })
+        var w = 500
+        var h = 200
+        var p = 20
+
+        var svg = d3.select("#barChart").append("svg")
+        .attr("width",w+p*2)
+        .attr("height",h)
+
+
+        var yScale = d3.scaleLinear()
+        .domain([0,100])
+        .range([h,0])
+
+        svg.selectAll("rect")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("x",function(d,i){
+            console.log(d,i)
+            return i*5
+        })
+        .attr("y",function(d,i){
+            return h-yScale(d)
+        })
+        .attr("width",function(){
+            return 3
+        })
+        .attr("height",function(d){
+            return yScale(d-100)
+        })
+        .attr("transform","translate("+p+","+p+")")
+
+        .on("mouseover",function(d){
+            console.log(d)
+            d3.select(this).attr("fill","red")
+            d3.select("#popup").html(d)
+        })
+        .on("mouseout",function(d){
+            console.log(d)
+            d3.select(this).attr("fill","black")
+        })
+
+        var yAxis = d3.axisLeft()
+        .scale(yScale)
+
+        svg.append("g")
+        .call(yAxis)
+
+    </script>
+</body>
+</html>
