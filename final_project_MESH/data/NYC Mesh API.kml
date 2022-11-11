@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>NYC Mesh API</name>
+	<NetworkLink id="048613F1852525D98054">
+		<name>Appointments</name>
+		<Link>
+			<href>https://api.nycmesh.net/v1/kml/appointments</href>
+		</Link>
+	</NetworkLink>
+	<NetworkLink id="1E66D16E4A2525D98054">
+		<name>LoS</name>
+		<Link>
+			<href>https://api.nycmesh.net/v1/kml/los</href>
+		</Link>
+	</NetworkLink>
+	<NetworkLink id="2E3C39E5DB2525D98054">
+		<name>Nodes</name>
+		<Link>
+			<href>https://api.nycmesh.net/v1/kml/nodes</href>
+		</Link>
+	</NetworkLink>
+	<NetworkLink id="306BA8D9772525D98054">
+		<name>Requests</name>
+		<Link>
+			<href>https://api.nycmesh.net/v1/kml/requests</href>
+		</Link>
+	</NetworkLink>
+</Document>
+</kml>

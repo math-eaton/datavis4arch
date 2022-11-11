@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>Display a map</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='../d3.js'></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+  <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js'></script>
+  <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css' type='text/css' />
+  <style>
+    body { margin:0; padding:0; }
+    #map { position:absolute; top:0; bottom:0; width:100%; }
+  </style>
+</head>
+<body>
+
+<div id='map'></div>
+
+
+<script>
+
+ // Set bounds to New York, New York
+var bounds = [
+[-74.1502, 40.55], // Southwest coordinates (Staten Island center point)
+[-73.7824, 40.85]  // Northeast coordinates (New Rochelle center point)
+];
+
+mapboxgl.accessToken = 'pk.eyJ1IjoibWpoMjI0MSIsImEiOiJjbDZhNWdtdWcwemYwM2Nyejg4azR6MjdtIn0.jcFs6eofGMkSv7Gokq_b6A';
+var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mjh2241/clabvz18o002o16tdj4u9l7vy', // mjh mapbox custom
+  center: [-73.9571, 40.69],//(Williamsburg Bk map center of gravity)
+  zoom: 11,
+  maxBounds: bounds, // Sets bounds as max
+  pitch:40,
+  bearing:0
+});
+
+
+
+map.addControl(new mapboxgl.NavigationControl());
+
+
+// //10.data
+// //make public variables so they are accessible by map
+// var geoData;
+// var otherData;
+
+// Promise.all([d3.json("links_update_START_XYPT_4326_20221110.geojson"), d3.json("links_update_END_XYPT_4326_20221110.geojson")])
+//     .then(function(data){
+//         geoData = data[0]
+//         otherData = data[1]     
+        
+           
+//         drawMarkers(geoData,otherData)
+//         //we can also add the charts like we did in 7c using otherData which we loaded as file
+//     })
+
+
+// function drawMarkers(geoData,otherData){
+    
+//     map.on('load', function () {
+//         map.loadImage('star.png', function(error, image) {//we load the image icon as we did in the previous file
+//             map.addImage('star', image);        
+//                 map.addLayer({
+//                     "id": "points",
+//                     "type": "symbol",
+//                     "source": {
+//                             "type": "geojson",
+//                             "data": geoData,//this is where we reference the geojson data from above
+//                     },
+//                     "layout": {//this is where we style the display- size the icons, show the labels etc. for placement and size
+//                             "icon-image": "star",
+//                             "icon-size": 0.1,
+//                             "text-field": "{class}",//uses the class field in the geojson file for our label
+//                             "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+//                             "text-offset": [0, 1],
+//                             "text-anchor": "top",
+//                         },
+//                         "paint":{//paint is used to define colors, etc.
+//                             "text-color":"black"
+//                         }
+//                     });
+//         })
+//     })
+// }
+
+
+map.on("load",function(){
+    d3.selectAll(".mapboxgl-ctrl-logo").remove()
+    d3.selectAll(".mapboxgl-ctrl-attrib").remove()
+})
+</script>
+
+</body>
+</html>
