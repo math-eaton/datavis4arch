@@ -1,15 +1,15 @@
 const urls = {
     // source: https://observablehq.com/@mbostock/u-s-airports-voronoi
     // source: https://github.com/topojson/us-atlas
-    map: "counties-10m.json",
+    map: "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json",
   
     // source: https://gist.github.com/mbostock/7608400
     airports:
-      "https://gist.githubusercontent.com/mbostock/7608400/raw/e5974d9bba45bc9ab272d98dd7427567aafd55bc/airports.csv",
+      "https://raw.githubusercontent.com/math-eaton/datavis4arch/063ed813ff1214482717a7ae21293f1bf5ef1600/final_project_MESH/vis01_map/data/nodes_update.csv",
   
     // source: https://gist.github.com/mbostock/7608400
     flights:
-      "https://gist.githubusercontent.com/mbostock/7608400/raw/e5974d9bba45bc9ab272d98dd7427567aafd55bc/flights.csv"
+      "https://raw.githubusercontent.com/math-eaton/datavis4arch/063ed813ff1214482717a7ae21293f1bf5ef1600/final_project_MESH/vis01_map/data/links_update.csv"
   };
   
   const svg  = d3.select("svg");
@@ -83,28 +83,28 @@ const urls = {
       link.target.incoming += link.count;
     });
   
-    // remove airports out of bounds
-    let old = airports.length;
-    airports = airports.filter(airport => airport.x >= 0 && airport.y >= 0);
-    console.log(" removed: " + (old - airports.length) + " airports out of bounds");
+    // // remove airports out of bounds
+    // let old = airports.length;
+    // airports = airports.filter(airport => airport.x >= 0 && airport.y >= 0);
+    // console.log(" removed: " + (old - airports.length) + " airports out of bounds");
   
-    // remove airports with NA state
-    old = airports.length;
-    airports = airports.filter(airport => airport.state !== "NA");
-    console.log(" removed: " + (old - airports.length) + " airports with NA state");
+    // // remove airports with NA state
+    // old = airports.length;
+    // airports = airports.filter(airport => airport.state !== "NA");
+    // console.log(" removed: " + (old - airports.length) + " airports with NA state");
   
-    // remove airports without any flights
-    old = airports.length;
-    airports = airports.filter(airport => airport.outgoing > 0 && airport.incoming > 0);
-    console.log(" removed: " + (old - airports.length) + " airports without flights");
+    // // remove airports without any flights
+    // old = airports.length;
+    // airports = airports.filter(airport => airport.outgoing > 0 && airport.incoming > 0);
+    // console.log(" removed: " + (old - airports.length) + " airports without flights");
   
-    // sort airports by outgoing degree
-    airports.sort((a, b) => d3.descending(a.outgoing, b.outgoing));
+    // // sort airports by outgoing degree
+    // airports.sort((a, b) => d3.descending(a.outgoing, b.outgoing));
   
-    // keep only the top airports
-    old = airports.length;
-    airports = airports.slice(0, 50);
-    console.log(" removed: " + (old - airports.length) + " airports with low outgoing degree");
+    // // keep only the top airports
+    // old = airports.length;
+    // airports = airports.slice(0, 50);
+    // console.log(" removed: " + (old - airports.length) + " airports with low outgoing degree");
   
     // done filtering airports can draw
     drawAirports(airports);
@@ -113,10 +113,10 @@ const urls = {
     // reset map to only include airports post-filter
     iata = new Map(airports.map(node => [node.iata, node]));
   
-    // filter out flights that are not between airports we have leftover
-    old = flights.length;
-    flights = flights.filter(link => iata.has(link.source.iata) && iata.has(link.target.iata));
-    console.log(" removed: " + (old - flights.length) + " flights");
+    // // filter out flights that are not between airports we have leftover
+    // old = flights.length;
+    // flights = flights.filter(link => iata.has(link.source.iata) && iata.has(link.target.iata));
+    // console.log(" removed: " + (old - flights.length) + " flights");
   
     // done filtering flights can draw
     drawFlights(airports, flights);
